@@ -2,18 +2,23 @@ import sys
 
 
 def main():
-    numbers_list = sys.stdin.readline().rstrip().split()
-    numbers_list = [int(number) for number in numbers_list]
-    result = []
-    for number in numbers_list:
-        counter = 0
-        for i in range(len(numbers_list)):
-            if number > numbers_list[i]:
-                counter += 1
-        result.append(counter)
+    string = sys.stdin.readline().rstrip()
+    substring = []
+    max_len = 0
+    index = 0
+    while index < len(string):
+        if string[index] not in substring:
+            substring.append(string[index])
+        else:
+            if len(substring) > max_len:
+                max_len = len(substring)
+            while string[index] in substring:
+                substring.pop(0)
+            substring.append(string[index])
+        index += 1
+    result = max(max_len, len(substring))
 
-    result = [str(number) for number in result]
-    print(' '.join(result))
+    print(result)
 
 
 if __name__ == '__main__':
